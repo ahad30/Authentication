@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 
@@ -9,7 +8,7 @@ const Login = () => {
   // const { signIn, signInWithGoogle, signInWithGithub } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-  // console.log('location i n the login page', location)
+ 
 
   const handleLogin = async e => {
     e.preventDefault();
@@ -21,6 +20,7 @@ const Login = () => {
     axios.post(`http://localhost:5000/login`, {  email, password })
     .then((response) => {
         const data = response?.data;
+        // localStorage.setItem("userInfo" , JSON.stringify(data?.user))
         if (data?.message) {
             toast.success(data?.message);
             navigate(location.state? location.state : "/" ); 
@@ -28,7 +28,7 @@ const Login = () => {
     })
     .catch((error) => {
         const errorMsg = error?.response?.data?.message || 'An error occurred.';
-        toast.error(errorMsg); // Display error toast
+        toast.error(errorMsg);
     });
   }
 

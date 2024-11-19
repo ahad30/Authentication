@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye } from 'react-icons/fa';
 import { FiEyeOff } from "react-icons/fi";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import axios from 'axios';
 
 const Register = () => {
@@ -27,13 +27,12 @@ const Register = () => {
             })
             .catch((error) => {
                 const errorMsg = error?.response?.data?.message || 'An error occurred.';
-                toast.error(errorMsg); // Display error toast
+                toast.error(errorMsg);
             });
     };
 
     return (
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-            <Toaster /> {/* Hot toast container */}
             <div className="mx-auto max-w-lg text-center">
                 <h1 className="text-2xl font-bold sm:text-3xl">Register Now!</h1>
             </div>
