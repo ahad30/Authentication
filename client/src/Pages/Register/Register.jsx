@@ -4,6 +4,7 @@ import { FaEye } from 'react-icons/fa';
 import { FiEyeOff } from "react-icons/fi";
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { Input } from '@/components/ui/input';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false); 
@@ -37,27 +38,21 @@ const Register = () => {
                 <h1 className="text-2xl font-bold sm:text-3xl">Register Now!</h1>
             </div>
 
-            <form onSubmit={handleRegister} className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+            <form onSubmit={handleRegister} className="mx-auto mb-0 mt-8 max-w-md space-y-8">
 
                 <div>
                     <label htmlFor="name" className="sr-only">Name</label>
                     <div className="form-control">
-                        <input
-                            type="text"
-                            name="name"
-                            className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                            placeholder="Enter name"
-                        />
+                    <Input type="text" placeholder="Enter name" name="name"/>
                     </div>
                 </div>
 
                 <div>
                     <label htmlFor="email" className="sr-only">Email</label>
                     <div className="form-control">
-                        <input
+                        <Input
                             type="email"
                             name="email"
-                            className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                             placeholder="Enter email"
                         />
                     </div>
@@ -66,10 +61,10 @@ const Register = () => {
                 <div>
                     <label htmlFor="photo" className="sr-only">Photo Url</label>
                     <div className="form-control">
-                        <input
+                        <Input
                             type="text"
                             name="photo"
-                            className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                            
                             placeholder="Photo Url"
                         />
                     </div>
@@ -78,22 +73,22 @@ const Register = () => {
                 <div>
                     <label htmlFor="password" className="sr-only">Password</label>
                     <div className="form-control relative">
-                        <input
+                        <Input
                             type={showPassword ? "text" : "password"}
                             name="password"
-                            className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                           
                             placeholder="Enter password"
                         />
                         {showPassword ? (
                             <FiEyeOff
                                 size={35}
-                                className="absolute inset-y-2 right-0 pr-4 cursor-pointer"
+                                className="absolute inset-y-1 right-0 pr-4 cursor-pointer"
                                 onClick={() => setShowPassword(false)}
                             />
                         ) : (
                             <FaEye
                                 size={35}
-                                className="absolute inset-y-2 right-0 pr-4 cursor-pointer"
+                                className="absolute inset-y-1 right-0 pr-4 cursor-pointer"
                                 onClick={() => setShowPassword(true)}
                             />
                         )}
