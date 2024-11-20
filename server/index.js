@@ -11,11 +11,11 @@ const port = process.env.PORT || 5000;
 
 const corsOptions = {
   origin: [
-    "http://localhost:5173",    
+    "http://localhost:5173",
   ],
   credentials: true,
   optionSuccessStatus: 200,
-}
+};
 
 // Middleware
 app.use(cors(corsOptions));
@@ -100,6 +100,73 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Get All Users
+app.get('/users', async (req, res) => {
+  try {
+    const users = await UserModel.find();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error.' });
+  }
+});
+
+// Get User by ID
+app.get('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await UserModel.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error.' });
+  }
+});
+
+// Update User
+app.put('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, email, photo } = req.body;
+
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      id,
+      { name, email, photo },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    res.status(200).json({ message: 'User updated successfully.', user: updatedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error.' });
+  }
+});
+
+// Delete User
+app.delete('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedUser = await UserModel.findByIdAndDelete(id);
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    res.status(200).json({ message: 'User deleted successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error.' });
+  }
+});
 
 // Start server
 app.listen(port, () => {
